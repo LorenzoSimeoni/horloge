@@ -1,0 +1,11 @@
+.timer-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer {
+  font-weight: 300;
+  font-size: clamp(20px, 14vw, 200px);
+}

@@ -1,0 +1,50 @@
+.alarm-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 10px;
+}
+
+.next-alarm-container {
+  position: sticky;
+  background-color: #e5ecf4;
+  height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+}
+
+.add-alarm {
+  position: fixed;
+  border-radius: 50%;
+  background-color: #9763ff;
+  height: 75px;
+  width: 75px;
+  cursor: pointer;
+  border: 0px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: #fff;
+  font-family: Comfortaa;
+  font-size: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-alarm:hover {
+  background-color: #8a4fff;
+}
+
+@media screen and (max-width: 650px) {
+  .add-alarm {
+    width: 45px;
+    height: 45px;
+    font-size: 30px;
+  }
+}
