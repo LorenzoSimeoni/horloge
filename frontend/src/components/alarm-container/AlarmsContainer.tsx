@@ -72,8 +72,12 @@ const AlarmsContainerComponent: React.FC = () => {
     } else {
       totalHours = time1.getHours() - time2.getHours();
     }
-    if (time1.getMinutes() < time2.getMinutes() && totalHours !== 0) {
-      totalHours = totalHours - 1;
+    if (time1.getMinutes() < time2.getMinutes()) {
+      if (totalHours === 0) {
+        totalHours = 23;
+      } else {
+        totalHours = totalHours - 1;
+      }
     }
     return totalHours;
   };
@@ -197,10 +201,6 @@ const AlarmsContainerComponent: React.FC = () => {
             diffHours = diffHours + dayDiff * 24;
           }
         }
-
-        console.log("nextDay" + nextDay);
-        console.log("diffHours" + diffHours);
-        console.log("diffMinutes" + diffMinutes);
 
         const duration = new Duration(diffHours, diffMinutes);
         if (
