@@ -17,7 +17,11 @@ export class AlarmsController {
 
   @Post()
   create(@Body() createAlarmDto: CreateAlarmDto) {
-    return this.alarmsService.create(createAlarmDto);
+    return this.alarmsService.create({
+      ...createAlarmDto,
+      enabled: true,
+      duration: 10,
+    });
   }
 
   @Get()

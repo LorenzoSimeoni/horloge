@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Alarm.css";
 import { Alarm } from "../../utils/Alarm";
 import AlarmHttpService from "../../services/AlarmHttpService";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface AlarmProps {
   alarm: Alarm;
+  onChange: (newAlarm: Alarm) => void;
+  onDelete: (deletedAlarmId: string) => void;
 }
 
 const AlarmComponent: React.FC<AlarmProps> = (props) => {
@@ -16,18 +19,30 @@ const AlarmComponent: React.FC<AlarmProps> = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await AlarmHttpService.patchData("alarms", alarm);
-        console.log(result);
+        await AlarmHttpService.patchAlarm(alarm);
       } catch (error) {
-        // Gérer les erreurs
+        // Gérer les erreus
       }
     };
 
     fetchData();
   }, [alarm]);
 
+  useEffect(() => {
+    props.onChange(alarm);
+  }, [alarm.enabled, alarm, props]);
+
   const toggleEnabled = () => {
     setAlarm((prevAlarm) => ({ ...prevAlarm, enabled: !prevAlarm.enabled }));
+  };
+
+  const deleteAlarm = async () => {
+    try {
+      const deletedAlarmId = await AlarmHttpService.deleteAlarm(alarm._id);
+      props.onDelete(deletedAlarmId);
+    } catch (error) {
+      // TODO Gérer les erreus
+    }
   };
   return (
     <div className={alarmClass}>
@@ -40,16 +55,18 @@ const AlarmComponent: React.FC<AlarmProps> = (props) => {
             : "Ne sonne qu'une fois"}
         </span>
       </div>
-      <div>
+      <div className="actions-container">
         <input
           type="checkbox"
           name="checkbox"
+          className="toggle-input"
           id={alarm._id}
           checked={alarm.enabled}
           onChange={() => {}}
           onClick={toggleEnabled}
         ></input>
         <label htmlFor={alarm._id} className="switch"></label>
+        <DeleteIcon onClick={deleteAlarm} className="delete" />
       </div>
     </div>
   );

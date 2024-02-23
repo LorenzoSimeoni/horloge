@@ -5,5 +5,5 @@ export class CreateAlarmDto {
   duration?: number;
   time: Date;
   days?: DayOfWeek[];
-  enabled: boolean;
+  enabled?: boolean;
 }
